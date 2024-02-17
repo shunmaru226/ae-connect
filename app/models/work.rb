@@ -1,6 +1,5 @@
 class Work < ApplicationRecord
     belongs_to :user
-    
     has_many :work_genres
     has_many :genres, through: :work_genres
     
