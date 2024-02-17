@@ -1,2 +1,55 @@
+<% if logged_in? %>
 
-<%= link_to "新規登録", new_user_path, class:'btn btn-primary' %>
+    <% if @users.any? %>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div class="offset-1 col-10">
+          
+          <%= search_form_for @q, url: root_url do |f| %>
+            <%= f.search_field :profile_or_history_cont, placeholder: 'キーワード' %>
+            <%= f.submit %>
+          <% end %>
+        </div>
+        
+        <% @users.each do |user| %>
+    
+          <div class="col">
+            <div class="card h-100">
+              <% if user.image != nil %>
+                <%= image_tag user.image_url(:small), class:'card-img-top img-fluid' %>
+              <% else %>
+                <%= image_tag '20200501_noimage.png', class: 'card-img-top img-fluid' %>
+              <% end %>
+              <div class="card-body">
+                <h5 class="card-title"><%= link_to user.name, user %></h5>
+                <p class="card-text">.</p>
+                <p><a class="link-opacity-100-hover" href="#"><%= @user&.work&.sns_url %></a></p>
+                
+                <p class="card-text">得意ジャンル</p>
+                <% user.work&.genres&.each do |genre|  %>
+                  <li class="list-group-item"><%= genre.name %></li>
+                <% end %>
+                </ul>       
+              </ul>                   
+                <p>作品を掲載しているURL</p>
+              </div>
+            </div>
+          </div>
+        <% end %>
+    </div>
+  
+      <% else %>
+          該当ユーザーはいませんでした
+      <% end %>
+
+<% else %>
+
+<div class="bg-secondary p-3 p-sm-5 my-4 rounded">
+  <div class="text-center text-white">
+    <h1>AE-connect</h1>
+        <%= link_to '新規登録をする', signup_path, class: 'btn btn-lg btn-primary' %>
+  </div>
+</div>
+
+<%= link_to "新規登録をする", new_user_path, class:'btn btn-primary' %>
+
+<% end %>

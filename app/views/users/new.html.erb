@@ -1,0 +1,39 @@
+<div class="text-center">
+  <h1>新規登録ページ</h1>
+</div>
+
+<div class="row">
+  <div class="col-sm-6 offset-sm-3">
+
+    <%= form_with(model: @user) do |f| %>
+      <%= render 'layouts/error_messages', model: f.object %>
+
+      <div class="mb-3">
+        <%= f.label :name, 'お名前' %>
+        <%= f.text_field :name, class: 'form-control' %>
+      </div>
+
+      <div class="mb-3">
+        <%= f.label :email, 'メールアドレス' %>
+        <%= f.email_field :email, class: 'form-control' %>
+      </div>
+
+      <div class="mb-3">
+        <%= f.label :password, 'パスワード' %>
+        <%= f.password_field :password, class: 'form-control' %>
+      </div>
+
+      <div class="mb-3">
+        <%= f.label :password_confirmation, '再パスワード入力' %>
+        <%= f.password_field :password_confirmation, class: 'form-control' %>
+      </div>
+      
+      <div class="mb-3">
+        <%= f.label :author_flag, "あなたはクリエイター or 編集者どちらで登録されますか？" %>
+        <%= f.select :author_flag, [['編集者',0],['クリエイター',1]], { include_blank: true, selected: 0 }, class: 'form-control' %>
+      </div>
+
+      <%= f.submit '上記の内容で登録する', class: 'btn btn-primary w-100' %>
+    <% end %>
+  </div>
+</div>

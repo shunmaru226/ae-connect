@@ -1,0 +1,32 @@
+<div class="text-center">
+  <h1>お問い合わせ</h1>
+</div>
+
+<div class="row">
+  <div class="col-sm-6 offset-sm-3">
+
+    <%= form_with(model: @user) do |f| %>
+      <%= render 'layouts/error_messages', model: f.object %>
+
+      <div class="mb-3">
+        <%= f.label :name, 'お名前' %>
+      </div>
+
+      <div class="mb-3">
+        <%= f.label :email, 'メールアドレス' %>
+      </div>
+
+      <div class="mb-3">
+       <%= f.label "あなたはクリエイター or 編集者どちらで登録されてますか？" %>
+        <%= f.select [['編集者',0],['クリエイター',1]], { include_blank: true, selected: 0 }, class: 'form-control' %>   
+    　</div>
+
+      <div class="mb-3">
+        <%= f.label :password_confirmation, 'お問い合わせ内容' %>
+      </div>
+      
+
+      <%= f.submit '上記の内容で問い合わせをする', class: 'btn btn-primary w-100' %>
+    <% end %>
+  </div>
+</div>

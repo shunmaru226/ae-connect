@@ -1,0 +1,93 @@
+<div class="text-center">
+  <h1>プロフィール編集画面</h1>
+</div>
+
+<div class="row m-5">
+  <div class="col-md-10 offset-md-1 ">
+
+    <%= form_with(model: @user) do |f| %>
+      <%= render 'layouts/error_messages', model: f.object %>
+
+    <div class="row">
+      <div class="col-6">
+        <div class="mb-3">
+          <%= f.label :name, 'お名前(ペンネーム)' %>
+          <%= f.text_field :name, class: 'form-control' %>
+        </div>
+        
+        <div class="mb-3">
+          <%= f.label :email, 'メール' %>
+          <%= f.text_field :email, class: 'form-control' %>
+        </div>
+      
+        <div class="mb-3 field">
+          <%= f.label :image_data, 'アバター画像' %>
+          <%= f.hidden_field :image, value: current_user.cached_image_data %>
+          <%= f.file_field :image %>
+        </div>  
+  
+        <%= f.fields_for :work, @user.work || Work.new do |fw| %>
+        
+        <div class="mb-3">
+          <%= fw.label :link_url, "作品を掲載しているURL" %>
+          <%= fw.text_field :link_url, class: 'form-control' %>
+        </div>
+        
+        <div class="mb-3">
+          <%= fw.label :age, "年齢(非公開も可)" %>
+          <%= fw.text_field :age, class: 'form-control' %>
+        </div>   
+        
+        <div class="mb-3">
+          <%= fw.label :career, "経歴（受賞歴）" %>
+          <%= fw.text_field :career, class: 'form-control' %>
+        </div>   
+        
+        <div class="mb-3">
+          <%= fw.label :assistant_history, "アシスタント歴があるか" %>
+          <%= fw.text_field :assistant_history, class: 'form-control' %>
+        </div>   
+        
+        <div class="mb-3">
+          <%= fw.label :drawing_forml, "可能な作画形態（デジタル・アナログ）" %>
+          <%= fw.text_field :drawing_form, class: 'form-control' %>
+        </div>   
+        
+        <div class="mb-3">
+          <%= fw.label :working_stylel, "可能な勤務形式(在宅・通い・泊まり)" %>
+          <%= fw.text_field :working_style, class: 'form-control' %>
+        </div>    
+        
+      </div> <!-- 左側 -->
+      
+      <div class="col-6">
+          <div class="mb-3">
+            <%= fw.label :genre_ids, "ジャンル" %><br>
+            <%= collection_check_boxes(:work, :genre_ids, Genre.all, :id, :name) do |genre| %>
+              <%= genre.label do %>
+                <%= genre.check_box checked: @genres.include?(genre.text) %> <!-- checkedがtrueならcheck  -->
+                <%= genre.text %>
+              <% end %>
+            <% end %>
+        　</div>
+
+        
+        <div class="mb-3">
+          <%= fw.label :sns_url, 'SNS' %>
+          <%= fw.text_field :sns_url, class: 'form-control' %>
+          <%= fw.text_field :sns_url, class: 'form-control' %>
+          <%= fw.text_field :sns_url, class: 'form-control' %>
+        </div>
+                
+        
+        <div class="mb-3">
+          <%= fw.label :profile, ' PR欄（100文字以内で表示）' %>
+          <%= fw.text_area :profile, class: 'form-control' ,style: "width:100%", rows: "10" %>
+        </div>              
+      </div>
+    </div>
+      <%= f.submit 'プロフィールを更新する', class: 'btn btn-primary w-100' %>
+        <% end %> <!-- f.fields_for -->
+    <% end %>
+  </div>
+</div>

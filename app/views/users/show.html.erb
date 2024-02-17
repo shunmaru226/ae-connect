@@ -1,0 +1,100 @@
+<div class="row">
+  <aside class="col-sm-4">
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title"><%= @user.name %></h3>
+      </div>
+      <div class="card-body">
+        
+      </div>
+    </div>
+  </aside>
+  <div class="col-sm-8">
+    <div class="list-group">
+      <ul class="list-group list-group-horizontal">
+        
+        <li class="list-group-item">お名前（ペンネーム）</li>
+        <li class="list-group-item"><%= @user.name %></li>
+       </ul>
+
+      <ul class="list-group list-group-horizontal">
+        <li class="list-group-item">連絡先メールアドレス</li>
+        <li class="list-group-item"><%= @user.email %></li>
+      </ul>
+      
+      <ul class="list-group list-group-horizontal">
+        <li class="list-group-item">作品を掲載しているURL</li>
+        <li class="list-group-item"><%= @user.work&.link_url %></li>
+
+      </ul>
+      
+      <ul class="list-group list-group-horizontal">
+        <li class="list-group-item">年齢</li>
+        <li class="list-group-item"><%= @user.work&.age %></li>
+      </ul>
+      
+      <ul class="list-group list-group-horizontal">
+        <li class="list-group-item">経歴（受賞歴）</li>
+        <li class="list-group-item"><%= @user.work&.career %></li>
+      </ul>      
+      
+      <ul class="list-group list-group-horizontal">
+        <li class="list-group-item">アシスタント歴（ある場合）</li>
+        <li class="list-group-item"><%= @user.work&.assistant_history %></li>
+      </ul>      
+      
+      <ul class="list-group list-group-horizontal">
+        <li class="list-group-item">可能な作画形式</li>
+        <li class="list-group-item"><%= @user.work&.drawing_form %></li>
+      </ul>   
+      
+     <ul class="list-group list-group-horizontal">
+        <li class="list-group-item">使用できるアイテム</li>
+        <li class="list-group-item"><%= @user.work&.drawing_form %></li>
+        <li class="list-group-item"></li>
+      </ul>    
+      
+      <ul class="list-group list-group-horizontal">
+        <li class="list-group-item">可能な勤務形態（在宅・通い・泊まり）</li>
+        <li class="list-group-item"><%= @user.work&.working_style %></li>
+      </ul>   
+      
+      <ul class="list-group list-group-horizontal">
+      <% genres = (temp = @user.work&.genres&.pluck(:name)) ? temp : [] %>
+
+        <li class="list-group-item">得意ジャンル</li>
+          <ul class="list-group m-1">
+            <% genres.each do |genre| %>
+          <li class="list-group-item"><%= genre %></li>
+        <% end %>
+        </ul>       
+      </ul>         
+      
+      <ul class="list-group list-group-horizontal">
+        <li class="list-group-item">SNS</li>
+        <li class="list-group-item"><%= @user.work&.sns_url %></li>
+      </ul>         
+      
+      <ul class="list-group list-group-horizontal">
+        <li class="list-group-item">プロフィール画像</li>
+        <li class="list-group-item">
+                    <%if @user.image_data.present? %>
+            <%= image_tag @user.image_url(:small) %>
+          <% end %>
+        </li>
+      </ul>   
+      
+      <ul class="list-group list-group-horizontal">
+        <li class="list-group-item">PR欄（100文字以内で表示）</li>
+        <textarea class="form-control" rows="3" disabled><%= @user.work&.profile %></textarea>
+      </ul>
+      
+      </div>
+    </div>
+      
+<%= link_to "編集する", mypage_edit_path, class:'btn btn-primary' %>
+
+
+  </div>
+</div>
+  

@@ -1,0 +1,27 @@
+<div class="text-center">
+  <h1>編集者ログイン画面</h1>
+</div>
+
+<div class="row">
+  <div class="col-sm-6 offset-sm-3">
+
+    <%= form_with(url: login_editor_path, scope: :session) do |f| %>
+
+      <div class="mb-3">
+        <%= f.label :email, 'ご登録のメールアドレス' %>
+        <%= f.email_field :email, class: 'form-control' %>
+      </div>
+
+      <div class="mb-3">
+        <%= f.label :password, 'パスワード' %>
+        <%= f.password_field :password, class: 'form-control' %>
+      </div>
+
+      <%= f.submit 'ログインする', class: 'btn btn-primary w-100' %>
+    <% end %>
+    
+
+
+    <p>新規登録はこちら→ <%= link_to 'こちらから', signup_path %></p>
+  </div>
+</div>

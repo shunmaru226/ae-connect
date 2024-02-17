@@ -10,7 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_01_10_135334) do
+ActiveRecord::Schema.define(version: 2024_02_10_130231) do
+
+  create_table "genres", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
@@ -19,6 +25,37 @@ ActiveRecord::Schema.define(version: 2024_01_10_135334) do
     t.boolean "author_flag"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.text "image_data"
   end
 
+  create_table "work_genres", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "work_id", null: false
+    t.bigint "genre_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["genre_id"], name: "index_work_genres_on_genre_id"
+    t.index ["work_id"], name: "index_work_genres_on_work_id"
+  end
+
+  create_table "works", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "user_id"
+    t.string "genre"
+    t.string "history"
+    t.string "publisher"
+    t.date "publishdate"
+    t.string "link_url"
+    t.string "sns_url"
+    t.string "career"
+    t.integer "age"
+    t.string "assistant_history"
+    t.string "drawing_form"
+    t.string "profile"
+    t.string "working_style"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_works_on_user_id"
+  end
+
+  add_foreign_key "work_genres", "genres"
+  add_foreign_key "work_genres", "works"
 end

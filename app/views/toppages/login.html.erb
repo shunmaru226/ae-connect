@@ -1,0 +1,14 @@
+<% if logged_in? %>
+  <p>ログイン完了ユーザ: <%= current_user.name %></p>
+<% else %>
+<div class="d-flex justify-content-around mb-3 p-sm-5 my-4 rounded">
+    <div class="p-2 w-100 text-center text-white">
+        <%= link_to 'AE-connectにクリエイターとしてログインする', login_creator_path, class: 'btn btn-lg btn-primary' %>
+  </div>
+  
+    <div class="p-2 w-100 text-center text-white">
+        <%= link_to 'AE-connectに編集者としてログインする',login_editor_path, class: 'btn btn-lg btn-primary' %>
+  </div>
+</div>
+<% end %>
+
